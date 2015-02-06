@@ -7,7 +7,6 @@ buildscript{
     }
     dependencies {
         classpath 'no.nils:wsdl2java:0.6'
-        classpath 'smartrics.restfixture:smartrics-RestFixture:3.0'
     }
 }
 
@@ -16,6 +15,12 @@ allprojects {
 
 	repositories{
     	mavenCentral()
+	}
+	dependencies {
+		compile 'org.apache.httpcomponents:httpclient:4.3.6'
+		compile 'commons-io:commons-io:2.4'
+		compile 'org.apache.commons:commons-lang3:3.3.2'
+		compile 'org.slf4j:slf4j-api:1.7.10'
 	}
 }
 
