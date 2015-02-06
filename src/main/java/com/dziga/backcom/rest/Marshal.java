@@ -1,4 +1,4 @@
-package com.dziga.backcom.service;
+package com.dziga.backcom.rest;
 
 import java.io.StringReader;
 import java.io.StringWriter;
