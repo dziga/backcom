@@ -21,6 +21,9 @@ allprojects {
 		compile 'commons-io:commons-io:2.4'
 		compile 'org.apache.commons:commons-lang3:3.3.2'
 		compile 'org.slf4j:slf4j-api:1.7.10'
+		compile 'org.slf4j:slf4j-simple:1.7.10'
+		testCompile 'junit:junit:4.11'
+		testCompile 'com.github.tomakehurst:wiremock:1.53'
 	}
 }
 

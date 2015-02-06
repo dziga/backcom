@@ -76,6 +76,8 @@ public class HttpRestClient {
         URI fullUri = b.build();
         HttpPost postMethod = new HttpPost(fullUri);
         HttpEntity entity = new StringEntity(body);
+//      TODO remove
+        System.out.println(body);
         postMethod.setEntity(entity);
         addHeadersToMethod(postMethod);
 
@@ -152,6 +154,8 @@ public class HttpRestClient {
         responseStatusCode = response.getStatusLine().getStatusCode();
         HttpEntity entity = response.getEntity();
         responseBody = EntityUtils.toString(entity);
+//        TODO remove
+        System.out.println(responseBody);
     }
 
 }

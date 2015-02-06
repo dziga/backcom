@@ -43,6 +43,10 @@ public class RestClient {
         }
     };
     
+    public void addHeader(String headerName, String headerValue) {
+		rest.addHeader(headerName, headerValue);
+	}
+    
     public int getResponseCode () {
         return responseCode;
     }

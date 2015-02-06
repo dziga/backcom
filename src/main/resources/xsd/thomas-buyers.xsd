@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-	<xs:element name="CustomerList">
-  		<xs:complexType>
+	<xs:element name="CustomerList" type="CustomerList" />
+	<xs:element name="Customer" type="Customer" />
+
+	<xs:complexType name="CustomerList">
     		<xs:sequence>
       			<xs:element ref="Customer"/>
       		</xs:sequence>
-    	</xs:complexType>
-    </xs:element>
+    </xs:complexType>
     
-    <xs:element name="Customer">
-  		<xs:complexType>
+    <xs:complexType name="Customer">
     		<xs:sequence>
     			<xs:element name="id" type="xs:long"/>
       			<xs:element name="firstname" type="xs:string"/>
@@ -18,6 +18,5 @@
       			<xs:element name="street" type="xs:string"/>
       			<xs:element name="city" type="xs:string"/>
       		</xs:sequence>
-      	</xs:complexType>
-     </xs:element>
+     </xs:complexType>
 </xs:schema>
