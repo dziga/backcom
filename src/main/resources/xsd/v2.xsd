@@ -15,7 +15,7 @@
     			<xs:element name="Id" type="xs:long"/>
       			<xs:element name="FirstName" type="xs:string"/>
       			<xs:element name="LastName" type="xs:string"/>
-      			<xs:element name="SignedContractDate" type="xs:date"/>
+      			<xs:element name="SignedContractDate" type="xs:string"/>
       			<xs:element name="Street" type="xs:string"/>
       			<xs:element name="StreetNumber" type="xs:int"/>
       			<xs:element name="City" type="xs:string"/>
