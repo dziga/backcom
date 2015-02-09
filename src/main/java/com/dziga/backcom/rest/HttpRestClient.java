@@ -64,7 +64,7 @@ public class HttpRestClient {
 		addQueryParams(b);
 		URI fullUri = b.build();
 		HttpGet getMethod = new HttpGet(fullUri);
-		addHeadersToMethod(getMethod);
+		getMethod = (HttpGet) addHeadersToMethod(getMethod);
 
 		processResponse(httpClient.execute(getMethod));
 		return responseStatusCode;
@@ -76,10 +76,8 @@ public class HttpRestClient {
         URI fullUri = b.build();
         HttpPost postMethod = new HttpPost(fullUri);
         HttpEntity entity = new StringEntity(body);
-//      TODO remove
-        System.out.println(body);
         postMethod.setEntity(entity);
-        addHeadersToMethod(postMethod);
+        postMethod = (HttpPost) addHeadersToMethod(postMethod);
 
         processResponse(httpClient.execute(postMethod));
 
@@ -93,7 +91,7 @@ public class HttpRestClient {
         HttpPut putMethod = new HttpPut(fullUri);
         HttpEntity entity = new StringEntity(body);
         putMethod.setEntity(entity);
-        addHeadersToMethod(putMethod);
+        putMethod = (HttpPut) addHeadersToMethod(putMethod);
 
         processResponse(httpClient.execute(putMethod));
 
@@ -105,8 +103,7 @@ public class HttpRestClient {
 		addQueryParams(uriBuilder);
 		URI fullUri = uriBuilder.build();
 		HttpDelete deleteMethod = new HttpDelete(fullUri);
-		addHeadersToMethod(deleteMethod);
-
+		deleteMethod = (HttpDelete) addHeadersToMethod(deleteMethod);
 		processResponse(httpClient.execute(deleteMethod));
 
 		return responseStatusCode;
@@ -138,10 +135,11 @@ public class HttpRestClient {
 		return responseBody;
 	}
 
-	private void addHeadersToMethod(HttpRequestBase method) {
+	private HttpRequestBase addHeadersToMethod(HttpRequestBase method) {
 		for (Header h : headers) {
 			method.addHeader(h.getName(), h.getValue());
 		}
+		return method;
 	}
 
 	private void addQueryParams(URIBuilder b) {
@@ -154,8 +152,6 @@ public class HttpRestClient {
         responseStatusCode = response.getStatusLine().getStatusCode();
         HttpEntity entity = response.getEntity();
         responseBody = EntityUtils.toString(entity);
-//        TODO remove
-        System.out.println(responseBody);
     }
 
 }

@@ -11,12 +11,7 @@ import java.util.Map.Entry;
 import javax.xml.bind.JAXBException;
 import javax.xml.stream.XMLStreamException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-
 public class RestClient {
-    private static final Logger LOG = LoggerFactory.getLogger(RestClient.class);
 
     private HttpRestClient rest;
     private int responseCode;
@@ -130,7 +125,6 @@ public class RestClient {
         else {
             throw new IllegalStateException("Not known request type: " + requestType.getRequestType());
         }
-        LOG.debug("Response body '{}'", rest.getResponseBody());
         rest.removeAllQueryParameters();
         if (returningModelObject == null) {
             returningModelObject = modelObject;
