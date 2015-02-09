@@ -5,7 +5,6 @@ import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.post;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
-import static com.github.tomakehurst.wiremock.client.WireMock.containing;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -32,7 +31,7 @@ import com.github.tomakehurst.wiremock.common.Slf4jNotifier;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 
 @SuppressWarnings("unused")
-public class CustomerApiTest {
+public class CustomerApiJsonTest {
 	
 	@Rule
 	public WireMockRule wireMockRule = new WireMockRule(wireMockConfig().port(8089).notifier(
@@ -40,34 +39,30 @@ public class CustomerApiTest {
 
 	@Before
 	public void setUp() {
-		stubFor(post(urlEqualTo("/v2/customers")).withHeader("Accept", containing("application/xml"))
-				.withRequestBody(matching(
-								".*<Customer>.*"
-	                            + ".*<FirstName>John</FirstName>.*"
-                        		+ ".*<LastName>Doe</LastName>.*" 
-                        		+ ".*<SignedContractDate>09-10-2015</SignedContractDate>.*"
-	                            + ".*<Street>Backer street</Street>.*"
-	                            + ".*<StreetNumber>3</StreetNumber>.*"
-	                            + ".*<City>London</City>.*"
-	                            + ".*<PostalCode>20002</PostalCode>.*"
-	                            + ".*</Customer>.*"
-						))
+		stubFor(post(urlEqualTo("/v2/customers")).withHeader("Accept", containing("application/json"))
+				.withRequestBody(matchingJsonPath("$.Customer"))
+			    .withRequestBody(matchingJsonPath("$..FirstName"))
+			    .withRequestBody(matchingJsonPath("$..LastName"))
+			    .withRequestBody(matchingJsonPath("$..SignedContractDate"))
+			    .withRequestBody(matchingJsonPath("$..Street"))
+			    .withRequestBody(matchingJsonPath("$..StreetNumber"))
+			    .withRequestBody(matchingJsonPath("$..City"))
+			    .withRequestBody(matchingJsonPath("$..PostalCode"))
 				.willReturn(
 	            aResponse()
 	                .withStatus(200)
-	                .withHeader("Content-Type", "application/xml")
+	                .withHeader("Content-Type", "application/json")
 	                .withBody(
-	                    TestConstants.XML_HEADER 
-	                            + "<Customer>"
-	                            + "<id>1</id>"
-	                            + "<FirstName>John</FirstName>"
-	                            + "<LastName>Doe</LastName>"
-	                            + "<SignedContractDate>09-10-2015</SignedContractDate>"
-	                            + "<Street>Backer street</Street>"
-	                            + "<StreetNumber>3</StreetNumber>"
-	                            + "<City>London</City>"
-	                            + "<PostalCode>200002</PostalCode>"
-	                            + "</Customer>")));
+							"{\"Customer\": " +
+							"{\"Id\": \"0\"," +
+							"\"FirstName\":\"John\"," +
+							"\"LastName\":\"Doe\"," +
+							"\"SignedContractDate\": \"09-10-2015\"," +
+							"\"Street\":\"Backer street\"," +
+							"\"StreetNumber\": \"3\"," +
+							"\"City\":\"London\"," +
+							"\"PostalCode\":\"20002\"}}"
+							)));
 	}
 	
 	@Test
@@ -82,6 +77,7 @@ public class CustomerApiTest {
 		customer.setCustomerCity("London");
 		customer.setCustomerPostalCode(20002);
 		
+		customer.setCustomerRequestFormat("json");
 		customer.createNewCustomer();
 		
 		Assert.assertEquals("John", customer.getCustomerFirstName());
@@ -90,6 +86,6 @@ public class CustomerApiTest {
 		Assert.assertEquals("Backer street", customer.getCustomerStreet());
 		Assert.assertEquals(3, customer.getCustomerStreetNumber());
 		Assert.assertEquals("London", customer.getCustomerCity());
-		Assert.assertEquals(Integer.valueOf(200002), customer.getCustomerPostalCode());
+		Assert.assertEquals(Integer.valueOf(20002), customer.getCustomerPostalCode());
 	}
 }

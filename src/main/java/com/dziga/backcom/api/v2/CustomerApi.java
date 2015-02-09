@@ -10,6 +10,8 @@ import java.security.NoSuchAlgorithmException;
 import javax.xml.bind.JAXBException;
 import javax.xml.stream.XMLStreamException;
 
+import org.json.JSONException;
+
 import com.dziga.backcom.domain.v2.Customer;
 import com.dziga.backcom.domain.v2.ObjectFactory;
 import com.dziga.backcom.rest.RestClient;
@@ -19,12 +21,17 @@ public class CustomerApi {
 	private RestClient restClient;
 	private Customer customer;
 	private ObjectFactory objectFactory = new ObjectFactory();
+	private String requestFormat = "xml";
 	
 	public CustomerApi() {
 		restClient = new RestClient(RestEndpoints.HOST);
-		restClient.addHeader("Content-Type", "application/xml");
-		restClient.addHeader("Accept", "application/xml");
+		restClient.addHeader("Content-Type", "application/xml, application/json");
+		restClient.addHeader("Accept", "application/xml, application/json");
 		customer = objectFactory.createCustomer();
+	}
+	
+	public void setCustomerRequestFormat(String requestFormat) {
+		this.requestFormat = requestFormat;
 	}
 	
 	public void setCustomerId(Long id) {
@@ -59,7 +66,8 @@ public class CustomerApi {
 		customer.setPostalCode(BigInteger.valueOf(postCode));
 	}
 	
-	public void createNewCustomer() throws KeyManagementException, InvalidKeyException, NoSuchAlgorithmException, JAXBException, URISyntaxException, IOException, XMLStreamException {
+	public void createNewCustomer() throws KeyManagementException, InvalidKeyException, NoSuchAlgorithmException, JAXBException, URISyntaxException, IOException, XMLStreamException, JSONException {
+		restClient.setRequestType(requestFormat);
 		customer = (Customer) restClient.postToService(objectFactory.createCustomer(customer), RestEndpoints.CUSTOMER_LIST);
 	}
 	

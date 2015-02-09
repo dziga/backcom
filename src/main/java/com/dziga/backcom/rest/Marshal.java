@@ -11,6 +11,10 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.transform.stream.StreamSource;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.XML;
+
 public class Marshal {
 
 	@SuppressWarnings("unchecked")
@@ -25,15 +29,25 @@ public class Marshal {
     }
 
 	@SuppressWarnings("unchecked")
-    public static Object toObject (String xml, Object modelObject) throws JAXBException, XMLStreamException {
-        if (xml == null || xml.isEmpty()) {
+    public static Object toObject (String input, Object modelObject) throws JAXBException, XMLStreamException, JSONException {
+        if (input == null || input.isEmpty()) {
             return null;
+        }
+        if(!input.startsWith("<")) {
+        	JSONObject json = new JSONObject(input);
+        	input = XML.toString(json);
         }
         JAXBContext jaxbContext = JAXBContext.newInstance(((JAXBElement<Object>) modelObject).getDeclaredType().getPackage().getName());
         Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-        JAXBElement<Object> jb = (JAXBElement<Object>) unmarshaller.unmarshal(new StreamSource(new StringReader(xml)));
- 
+        JAXBElement<Object> jb = (JAXBElement<Object>) unmarshaller.unmarshal(new StreamSource(new StringReader(input)));
+
         return (Object) jb.getValue();
     }
+	
+	public static String toJson (Object modelObject) throws JAXBException, JSONException {
+		String xml = toXml(modelObject);
+		JSONObject json = XML.toJSONObject(xml);
+        return json.toString();
+	}
 
 }

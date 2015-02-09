@@ -9,6 +9,8 @@ import java.security.NoSuchAlgorithmException;
 import javax.xml.bind.JAXBException;
 import javax.xml.stream.XMLStreamException;
 
+import org.json.JSONException;
+
 import com.dziga.backcom.domain.v1.Customer;
 import com.dziga.backcom.domain.v1.ObjectFactory;
 import com.dziga.backcom.rest.RestClient;
@@ -46,7 +48,7 @@ public class CustomerApi {
 		customer.setCity(city);
 	}
 	
-	public void createNewCustomer() throws KeyManagementException, InvalidKeyException, NoSuchAlgorithmException, JAXBException, URISyntaxException, IOException, XMLStreamException {
+	public void createNewCustomer() throws KeyManagementException, InvalidKeyException, NoSuchAlgorithmException, JAXBException, URISyntaxException, IOException, XMLStreamException, JSONException {
 		customer = (Customer) restClient.postToService(objectFactory.createCustomer(customer), RestEndpoints.CUSTOMER_LIST);
 	}
 	
