@@ -30,8 +30,7 @@ allprojects {
 xsd2java{
     xsdsToGenerate = [
         ["$projectDir/src/main/resources/xsd/v1.xsd", "com.dziga.backcom.domain.v1"],
-        ["$projectDir/src/main/resources/xsd/v2.xsd", "com.dziga.backcom.domain.v2"],
-        ["$projectDir/src/main/resources/xsd/thomas-buyers.xsd", "com.dziga.backcom.domain.tb"]
+        ["$projectDir/src/main/resources/xsd/v2.xsd", "com.dziga.backcom.domain.v2"]
     ]
     generatedXsdDir = file("$projectDir/src/generated/java")
 }

@@ -9,8 +9,8 @@ import java.security.NoSuchAlgorithmException;
 import javax.xml.bind.JAXBException;
 import javax.xml.stream.XMLStreamException;
 
-import com.dziga.backcom.domain.tb.Customer;
-import com.dziga.backcom.domain.tb.ObjectFactory;
+import com.dziga.backcom.domain.v1.Customer;
+import com.dziga.backcom.domain.v1.ObjectFactory;
 import com.dziga.backcom.rest.RestClient;
 
 public class CustomerApi {

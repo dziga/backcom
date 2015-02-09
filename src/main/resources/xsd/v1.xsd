@@ -1,18 +1,22 @@
-<xsd:schema targetNamespace="urn:helloWorld/sample/ibm/HelloWorld"
-            xmlns:tns="urn:helloWorld/sample/ibm/HelloWorld"
-            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	    elementFormDefault="qualified">
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-  <xsd:complexType name="helloType">
-    <xsd:sequence>
-      <xsd:element name="name" nillable="true" type="xsd:string" />
-    </xsd:sequence>
-  </xsd:complexType>
+	<xs:element name="CustomerList" type="CustomerList" />
+	<xs:element name="Customer" type="Customer" />
 
-  <xsd:complexType name="helloResponseType">
-    <xsd:sequence>
-      <xsd:element name="response" nillable="true" type="xsd:string" />
-    </xsd:sequence>
-  </xsd:complexType>
-
-</xsd:schema>
+	<xs:complexType name="CustomerList">
+    		<xs:sequence>
+      			<xs:element ref="Customer"/>
+      		</xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="Customer">
+    		<xs:sequence>
+    			<xs:element name="id" type="xs:long"/>
+      			<xs:element name="firstname" type="xs:string"/>
+      			<xs:element name="lastname" type="xs:string"/>
+      			<xs:element name="street" type="xs:string"/>
+      			<xs:element name="city" type="xs:string"/>
+      		</xs:sequence>
+     </xs:complexType>
+</xs:schema>
