@@ -79,10 +79,6 @@ public class RestClient {
         return getFromService(returningObject, servicePath, null);
     }
     
-    public Object getFromService(String servicePath) throws InvalidKeyException, KeyManagementException, NoSuchAlgorithmException, URISyntaxException, IOException, JAXBException, XMLStreamException, JSONException {
-        return getFromService(null, servicePath, null);
-    }
-    
     public Object postToService(Object abstractObject, Object returningObject, String servicePath, HashMap<String, String> params) throws InvalidKeyException, KeyManagementException, NoSuchAlgorithmException, URISyntaxException, IOException, JAXBException, XMLStreamException, JSONException {
         return doRequest(RequestType.POST, abstractObject, returningObject, servicePath, params);
     }
@@ -121,7 +117,7 @@ public class RestClient {
     }
 
     private Object doRequest(RequestType requestType, Object modelObject, Object returningModelObject, String servicePath, HashMap<String, String> params) throws InvalidKeyException, NoSuchAlgorithmException, URISyntaxException, IOException, JAXBException, KeyManagementException, XMLStreamException, JSONException {
-        if (params != null && !(params.isEmpty())) {
+    	if (params != null && !(params.isEmpty())) {
             for (Entry<String, String> param : params.entrySet()) {
             	rest.addQueryParameter(param.getKey(), param.getValue());
             }

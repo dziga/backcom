@@ -28,7 +28,7 @@ public class CustomerApi {
 		customer = objectFactory.createCustomer();
 	}
 	
-	public void setCustomerId(Long id) {
+	public void setCustomerId(long id) {
 		customer.setId(id);
 	}
 	
@@ -48,11 +48,23 @@ public class CustomerApi {
 		customer.setCity(city);
 	}
 	
+	public void getCustomer() throws KeyManagementException, InvalidKeyException, NoSuchAlgorithmException, JAXBException, URISyntaxException, IOException, XMLStreamException, JSONException {
+		customer = (Customer) restClient.getFromService(objectFactory.createCustomer(customer), String.format(RestEndpoints.CUSTOMER, customer.getId()));
+	}
+	
 	public void createNewCustomer() throws KeyManagementException, InvalidKeyException, NoSuchAlgorithmException, JAXBException, URISyntaxException, IOException, XMLStreamException, JSONException {
 		customer = (Customer) restClient.postToService(objectFactory.createCustomer(customer), RestEndpoints.CUSTOMER_LIST);
 	}
 	
-	public Long getCustomerId() {
+	public void editCustomer() throws KeyManagementException, InvalidKeyException, NoSuchAlgorithmException, JAXBException, URISyntaxException, IOException, XMLStreamException, JSONException {
+		customer = (Customer) restClient.putToService(objectFactory.createCustomer(customer), String.format(RestEndpoints.CUSTOMER, customer.getId()));
+	}
+	
+	public boolean deleteCustomer() throws KeyManagementException, InvalidKeyException, NoSuchAlgorithmException, JAXBException, URISyntaxException, IOException, XMLStreamException, JSONException {
+		return restClient.deleteViaService(String.format(RestEndpoints.CUSTOMER, customer.getId()));
+	}
+	
+	public long getCustomerId() {
 		return customer.getId();
 	}
 	

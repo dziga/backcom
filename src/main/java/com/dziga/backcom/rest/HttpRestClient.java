@@ -55,7 +55,7 @@ public class HttpRestClient {
 	}
 	
 	public void setRequestPath(String path) {
-		this.path = path;
+		this.path = path.trim();
 	}
 
 	public int Get() throws IOException, URISyntaxException,
