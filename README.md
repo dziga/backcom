@@ -121,51 +121,52 @@ public class CustomerApi {
 		//object factory is auto-generated with gradle plugin
 		customer = objectFactory.createCustomer();
 	}
-	```
+	// other methods presented bellow
+}
+```
 	
-	Provide methods for filling in objects with data and retreiving data from object after service call has ended.
+Provide methods for filling in objects with data and retreiving data from object after service call has ended.
 	
-	```java
-	public void setCustomerId(long id) {
-		customer.setId(id);
-	}
-	
-	public void setCustomerFirstName(String name) {
-		customer.setFirstname(name);
-	}
-	
-	public void setCustomerLastName(String name) {
-		customer.setLastname(name);
-	}
-	
-	public void setCustomerStreet(String street) {
-		customer.setStreet(street);
-	}
-	
-	public void setCustomerCity(String city) {
-		customer.setCity(city);
-	}
-	
-	
-	public long getCustomerId() {
-		return customer.getId();
-	}
-	
-	public String getCustomerFirstName() {
-		return customer.getFirstname();
-	}
-	
-	public String getCustomerLastName() {
-		return customer.getLastname();
-	}
-	
-	public String getCustomerStreet() {
-		return customer.getStreet();
-	}
-	
-	public String getCustomerCity() {
-		return customer.getCity();
-	}
+```java
+public void setCustomerId(long id) {
+	customer.setId(id);
+}
+
+public void setCustomerFirstName(String name) {
+	customer.setFirstname(name);
+}
+
+public void setCustomerLastName(String name) {
+	customer.setLastname(name);
+}
+
+public void setCustomerStreet(String street) {
+	customer.setStreet(street);
+}
+
+public void setCustomerCity(String city) {
+	customer.setCity(city);
+}
+
+
+public long getCustomerId() {
+	return customer.getId();
+}
+
+public String getCustomerFirstName() {
+	return customer.getFirstname();
+}
+
+public String getCustomerLastName() {
+	return customer.getLastname();
+}
+
+public String getCustomerStreet() {
+	return customer.getStreet();
+}
+
+public String getCustomerCity() {
+	return customer.getCity();
 }
 ```
 
